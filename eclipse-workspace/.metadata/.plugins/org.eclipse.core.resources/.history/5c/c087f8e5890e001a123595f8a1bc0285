@@ -1,0 +1,14 @@
+package com.ustglobal.jdbcApp;
+
+import java.sql.DriverManager;
+
+public class Demo 
+{
+	public static void main(String[] args) throws ClassNotFoundException 
+	{
+		Class.forName("com.mysql.jdbc.Driver");
+		Connection conn = DriverManager.getConnection(url);
+		
+		
+	}
+}

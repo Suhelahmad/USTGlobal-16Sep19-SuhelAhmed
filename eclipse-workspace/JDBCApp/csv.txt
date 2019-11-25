@@ -1,0 +1,4 @@
+20,Kirti,10000,M
+21,Ganjendr,20000,M
+22,Amar,10000,F
+23,Ranjith,320000,F

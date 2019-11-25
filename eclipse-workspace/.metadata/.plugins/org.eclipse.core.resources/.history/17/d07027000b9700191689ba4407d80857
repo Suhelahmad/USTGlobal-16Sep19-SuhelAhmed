@@ -1,0 +1,18 @@
+package myfrstproj;
+
+public class examples
+{
+	void call()
+	{
+		long number = 874895682;
+		System.out.println("An calling to..."+number);
+	}
+	
+	public static void main(String[] args) 
+	{
+	
+		examples m = new examples();
+		m.call();
+	}
+
+}
