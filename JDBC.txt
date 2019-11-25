@@ -1,0 +1,591 @@
+// Connection with Mysql and Java
+
+package com.ustglobal.jdbcApp;
+
+import  java.sql.*;
+import com.mysql.jdbc.Driver;
+
+
+public class MyFirstJDBC {
+	
+	public static void main(String[] args) {
+		Connection con = null;
+		Statement stmt = null;
+		
+		ResultSet rs = null;
+		
+		try {
+			
+			
+			Driver driver = new Driver();
+			DriverManager.registerDriver(driver);
+			String url = "jdbc:mysql://localhost:3306/employee1?"+"user=root&password=root";
+			con = DriverManager.getConnection(url);
+			stmt = con.createStatement();
+			String sql = "select *from employee1";
+			
+			rs = stmt.executeQuery(sql);
+			
+			while(rs.next())
+			{
+				int id = rs.getInt("id");
+				String name = rs.getString("name");
+				int  sal = rs.getInt("sal");
+				String gender = rs.getString("gender");
+				
+				System.out.println("Id = "+id);
+				System.out.println("Name= "+name);
+				System.out.println("Salary = "+sal);
+				System.out.println("Gender = "+gender);
+				System.out.println("********************");
+			}
+		}
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
+		finally {
+			 try {
+				 
+				  if(con!=null)
+				  {
+					  con.close();
+				  }
+				  if(stmt!=null)
+				  {
+					  stmt.close();
+				  }
+				  if(rs!=null)
+				  {
+					  rs.close();
+				  }
+			  }
+			 catch(Exception e2)
+			 {
+				 e2.printStackTrace();
+			 }
+		}
+		
+	}
+
+}
+
+
+To Insert the data from java in SQL by JDBC:
+
+package com.ustglobal.jdbcApp;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+import com.mysql.jdbc.Driver;
+
+public class ExecuteInsertQuery
+{
+	public static void main(String[] args)
+	{
+		Connection conn = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+		
+		try {
+			//Step 1 load the driver
+		Driver driver = new Driver();
+		DriverManager.registerDriver(driver);
+		
+		//Step 2 Get the Connection
+		String url = "jdbc:mysql://localhost:3306/employee1";
+		conn = DriverManager.getConnection(url,"root","root");
+		
+		//Step 3 Issue sql query
+			String sql = "insert into employee1 " + "values(7,'Hari',20000,'Male')";
+			stmt = conn.createStatement();
+			int count = stmt.executeUpdate(sql);
+			
+			//Step 4 Read the Result
+			System.out.println(count + " Row(s) inserted");
+			
+		}catch (SQLException e)
+		{
+			e.printStackTrace();
+		}finally {
+			//Step 5 close all JDBC Objects
+			try {
+				if(conn!=null)
+				  {
+					  conn.close();
+				  }
+				  if(stmt!=null)
+				  {
+					  stmt.close();
+				  }if(rs!=null)
+				  {
+					  rs.close();
+				  }
+				  
+			}catch (SQLException e1)
+			{
+				e1.printStackTrace();		
+			}
+		}
+	}//end of main
+}//end of ExecuteInsertQuery
+
+
+***************Adding Values by Dynamic Query********************
+package com.ustglobal.jdbcApp;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import com.mysql.jdbc.Driver;
+import com.mysql.jdbc.PreparedStatement;
+
+public class DynamicQuery 
+{
+	public static void main(String[] args)
+	{
+		Connection conn = null;
+		ResultSet rs = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			//Step 1 load the driver
+		Driver driver = new Driver();
+		DriverManager.registerDriver(driver);
+		
+		//Step 2 Get the Connection
+		String url = "jdbc:mysql://localhost:3306/employee1";
+		conn = DriverManager.getConnection(url,"root","root");
+		
+		//Step 3 Issue sql query
+			String sql = "insert into employee1 values(?,?,?,?)";
+			
+			pstmt = (PreparedStatement) conn.prepareStatement(sql);
+			
+			String empid = args[0];
+			int id = Integer.parseInt(empid);
+			pstmt.setInt(1, id);
+			
+			String name = args[1];
+			pstmt.setString(2, name);
+			
+			String empsal = args[2];
+			int sal = Integer.parseInt(empsal);
+			pstmt.setInt(3, sal);
+			
+			
+			String gender = args[3];
+			pstmt.setString(4, gender);
+			
+			int count = pstmt.executeUpdate();
+			
+			//Step 4 Read the Result
+			
+			System.out.println(count + " Row(s) inserted");
+			
+		}catch (SQLException e)
+		{
+			
+			
+			e.printStackTrace();
+		}finally {
+			//Step 5 close all JDBC Objects
+			try {
+				if(conn!=null)
+				  {
+					  conn.close();
+				  }
+				  if(rs!=null)
+				  {
+					  rs.close();
+				  }
+				  if(pstmt!=null)
+				  {
+					  pstmt.close();
+				  }
+				  
+			}catch (SQLException e1)
+			{
+				e1.printStackTrace();		
+			}
+		}
+	}//end of main
+} // end of DynamicQuery
+
+***************Select Query***************************
+
+package com.ustglobal.jdbcApp;
+
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import com.mysql.jdbc.Driver;
+
+public class DynamicSelectQuery
+{
+	public static void main(String[] args)
+	{
+		String url = "jdbc:mysql://localhost:3306/employee1?"+"user=root&password=root";
+		String sql = "select * from employee1 where id=?";
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			//Step 1 load drivers
+			Driver driver = new Driver();
+			DriverManager.registerDriver(driver);
+			
+			//Step 2 Get the Connection
+			conn = DriverManager.getConnection(url);
+			
+			//step 3 Issue SQL Query
+			pstmt = (PreparedStatement) conn.prepareStatement(sql);
+			String empid = args[0];
+			int id = Integer.parseInt(empid);
+			pstmt.setInt(1, id);
+			
+			rs = pstmt.executeQuery();
+			
+			//Step 4 Read the Result
+			if(rs.next())
+			{
+				int emp_id = rs.getInt("id");
+				int sal = rs.getInt("sal");
+				String name = rs.getString("name");
+				String gender = rs.getString("gender");
+				
+				System.out.println("Id is" +id);
+				System.out.println("Name is" +name);
+				System.out.println("Salary is" +sal);
+				System.out.println("Gender is" +gender);
+				System.out.println("*********************************");
+				
+			}
+			
+		}catch(SQLException e)
+		{
+			
+			e.printStackTrace();		
+		}finally {
+			//Step 5 close all JDBC Objects
+			try {
+				if(conn!=null)
+				  {
+					  conn.close();
+				  }
+				 if(pstmt!=null)
+				  {
+					  pstmt.close();
+				  }
+				  
+				  if(rs!=null)
+				  {
+					  rs.close();
+				  }
+				 
+			}catch (SQLException e1)
+			{
+				e1.printStackTrace();		
+			}
+		}
+			
+		}
+	}
+
+
+************Update Query****************************
+
+package com.ustglobal.jdbcApp;
+
+import java.sql.DriverManager;
+
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import com.mysql.jdbc.Driver;
+
+public class DynamicUpdateQuery
+{
+	public static void main(String[] args)
+	{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			//Step 1 load the driver
+		Driver driver = new Driver();
+		DriverManager.registerDriver(driver);
+		
+		//Step 2 Get the Connection
+		String url = "jdbc:mysql://localhost:3306/employee1";
+		conn = DriverManager.getConnection(url,"root","root");
+		
+		//Step 3 Issue sql query
+			String sql = "update employee1 set name=?, sal=?,gender=? where id=?";
+			
+			pstmt = (PreparedStatement) conn.prepareStatement(sql);
+			
+			String empid = args[0];
+			int id = Integer.parseInt(empid);
+			
+			String name = args[1];
+			pstmt.setString(2, name);
+			
+			String empsal = args[2];
+			int sal = Integer.parseInt(empsal);
+			
+			String gender = args[3];
+			pstmt.setInt(4, id);
+			pstmt.setString(1, name);
+			pstmt.setInt(2, sal);
+			pstmt.setString(3, gender);
+			
+			int count = pstmt.executeUpdate();
+			
+			//Step 4 Read the Result
+			System.out.println(count + " Row(s) Updated");
+			
+			
+			
+		}catch (SQLException e)
+		{	
+			e.printStackTrace();
+		}finally {
+			//Step 5 close all JDBC Objects
+			try {
+				if(conn!=null)
+				  {
+					  conn.close();
+				  }
+				  if(pstmt!=null)
+				  {
+					  pstmt.close();
+				  }
+				  
+			}catch (SQLException e1)
+			{
+				e1.printStackTrace();		
+			}
+		}
+	}//end of main
+} // end of DynamicQuery
+
+************************Delete Query*****************************************
+
+package com.ustglobal.jdbcApp;
+
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import com.mysql.jdbc.Driver;
+
+
+
+public class DynamicDeleteQuery 
+{
+	public static void main(String[] args)
+	{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			//Step 1 load the driver
+			Driver driver = new Driver();
+			DriverManager.registerDriver(driver);
+		
+		//Step 2 Get the Connection
+		String url = "jdbc:mysql://localhost:3306/employee1";
+		conn = DriverManager.getConnection(url,"root","root");
+		
+		//Step 3 Issue sql query
+			String sql = "delete from employee1 where id = ?";
+			pstmt = (PreparedStatement) conn.prepareStatement(sql);
+			pstmt.setInt(1, Integer.parseInt(args[0]));
+		
+			
+//			String name = args[1];
+//			pstmt.setString(2, name);
+//			
+//			String empsal = args[2];
+//			int sal = Integer.parseInt(empsal);
+//			
+//			String gender = args[3];
+//			pstmt.setInt(4, id);
+//			pstmt.setString(1, name);
+//			pstmt.setInt(2, sal);
+//			pstmt.setString(3, gender);
+//			
+			int count = pstmt.executeUpdate();
+			
+			//Step 4 Read the Result
+			System.out.println(count + " Row(s) Deleted");
+			
+			
+			
+		}catch (SQLException e)
+		{	
+			e.printStackTrace();
+		}finally {
+			//Step 5 close all JDBC Objects
+			try {
+				if(conn!=null)
+				  {
+					  conn.close();
+				  }
+				  if(pstmt!=null)
+				  {
+					  pstmt.close();
+				  }
+				  
+			}catch (SQLException e1)
+			{
+				e1.printStackTrace();		
+			}
+		}
+	}//end of main
+} // end of DynamicQuery
+
+*****************************Rtrieving the data from txt file*************************************
+
+package com.ustglobal.FileHandling;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+
+public class CSVReader 
+{
+
+	public static void main(String[] args)
+	{
+		try(FileReader in = new FileReader("csv.txt");
+		BufferedReader reader = new BufferedReader(in))
+		{
+			while(reader.ready()) {
+			System.out.println(reader.readLine());
+		}
+				
+	}catch (Exception e)
+	{
+		e.printStackTrace();
+	}
+
+   }
+}
+
+**************To store the data of text file into database table********************************
+
+
+package com.ustglobal.jdbcApp;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+
+public class InsertWithCSVFile 
+{
+
+	public static void main(String[] args) 
+	{
+		String url = "jdbc:mysql://localhost:3306/employee1?"+"user=root&password=root";
+		String sql = "insert into employee1 values(?,?,?,?)";
+		try(FileReader in = new FileReader("csv.txt");
+				BufferedReader reader = new BufferedReader(in);
+				Connection conn = DriverManager.getConnection(url);
+				PreparedStatement pstmt = conn.prepareStatement(sql))
+				{
+					while(reader.ready())
+					{
+						String line = reader.readLine();
+						String[] datas = line.split(",");
+						
+						int id = Integer.parseInt(datas[0]);
+						String name = datas[1];
+						int sal = Integer.parseInt(datas[2]);
+						String gender = datas[3];
+						
+						pstmt.setInt(1, id);
+						pstmt.setString(2, name);
+						pstmt.setInt(3, sal);
+						pstmt.setString(4, gender);
+						
+						int count = pstmt.executeUpdate();
+						System.out.println(count+"Rows(s) inserted");
+					}//end of while loop
+	}catch (Exception e) 
+		{
+		e.printStackTrace();
+		}//end of try
+
+  }//end of main
+}// end with InsertWithCSVFIle
+
+
+************Batch() method which we stored data of text file into database****************
+
+package com.ustglobal.jdbcApp;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+
+public class InsertWithCSVFile 
+{
+
+	public static void main(String[] args) 
+	{
+		String url = "jdbc:mysql://localhost:3306/employee1?"+"user=root&password=root";
+		String sql = "insert into employee1 values(?,?,?,?)";
+		try(FileReader in = new FileReader("csv.txt");
+				BufferedReader reader = new BufferedReader(in);
+				Connection conn = DriverManager.getConnection(url);
+				PreparedStatement pstmt = conn.prepareStatement(sql))
+				{
+					while(reader.ready())
+					{
+						String line = reader.readLine();
+						String[] datas = line.split(",");
+						
+						int id = Integer.parseInt(datas[0]);
+						String name = datas[1];
+						int sal = Integer.parseInt(datas[2]);
+						String gender = datas[3];
+						
+						pstmt.setInt(1, id);
+						pstmt.setString(2, name);
+						pstmt.setInt(3, sal);
+						pstmt.setString(4, gender);
+						
+						pstmt.addBatch();
+					}//end of while loop
+						int[] counts = pstmt.executeBatch();
+						System.out.println(counts.length + " Rows inserted");
+					
+				}
+		catch (Exception e) 
+		{
+		e.printStackTrace();
+		}//end of try
+
+  }//end of main
+}// end with InsertWithCSVFIle
+
+
+
+**************Small Project on JDBC****************************************
+

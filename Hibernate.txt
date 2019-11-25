@@ -1,0 +1,457 @@
+Steps
+1)create the package with dto
+2)create Entity class (pojo class with getter and setter method)
+3)Mapping (@Column)
+4)For Primary key use Annotation [@Id]
+5)Use [@Column] Annotation if u used same data member as database has
+
+package com.ustglobal.jpawithhiberanteapp.dto;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity       			//(@Entity Annotation to start the Enity class)
+@Table(name="Product")    		//Table name of database("Product")
+public class Product     		//Give class name as databse name for easy to readable
+{
+	@Id              		 //(@Id) for Primary Key
+	@Column       		//@Column when we give datamember same as database columns has
+	private int pid;		//Give datamember same as database columns has (pid,pname.qty)
+	@Column
+	private String pname;
+	@Column
+	private int qty;
+	
+	public int getPid() {          	//Create getter and Setter Methods
+		return pid;
+	}
+	public void setPid(int pid) {
+		this.pid = pid;
+	}
+	public String getPname() {
+		return pname;
+	}
+	public void setPname(String pname) {
+		this.pname = pname;
+	}
+	public int getQty() {
+		return qty;
+	}
+	public void setQty(int qty) {
+		this.qty = qty;
+	}
+	
+	
+}
+
+**********************Methods******************************
+1)Persistence
+2)find
+3)remove
+4)getReference
+5)Contains
+6)Detached
+7)Merge
+8)clear
+*********************Inserting data into Database(insert query)******************************
+
+package com.ustglobal.jpawithhiberanteapp;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
+
+import com.ustglobal.jpawithhiberanteapp.dto.Product;
+
+public class InsertDemo {
+
+	public static void main(String[] args)
+	{
+		 Product p = new  Product();
+		 p.setPid(101);
+		 p.setPname("Suhel");
+		 p.setQty(20);
+		 
+		 EntityManagerFactory entityManagerFactory= Persistence.createEntityManagerFactory("TestPersistence");  //xml class name
+		 EntityManager entityManager = entityManagerFactory.createEntityManager();
+		 EntityTransaction entityTransaction= entityManager.getTransaction();
+		 entityTransaction.begin();
+		 entityManager.persist(p);
+		 System.out.println("Record Inserted Successfully");
+		 entityTransaction.commit();
+		 entityManager.close();
+
+	}// end of method
+
+} //end of class
+
+************************Reading the data********************************
+
+package com.ustglobal.jpawithhiberanteapp;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
+import com.ustglobal.jpawithhiberanteapp.dto.Product;
+
+public class ReadDemo 
+{
+
+	public static void main(String[] args) 
+	{
+
+		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("TestPersistence");
+		EntityManager entityManager=entityManagerFactory.createEntityManager();
+		Product productDetails =  entityManager.find(Product.class, 101);
+		System.out.println("ID--" + productDetails.getPid());
+		System.out.println("Name is--" + productDetails.getPname());
+		System.out.println("Quantity is--" + productDetails.getQty());
+
+	} //end of the main method
+
+} //end of class
+
+
+*******************Update record find() method***********************************************
+
+package com.ustglobal.jpawithhiberanteapp;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
+
+import com.ustglobal.jpawithhiberanteapp.dto.Product;
+
+public class UpdateDemo {
+
+	public static void main(String[] args)
+	
+	{
+		
+		EntityTransaction entityTransaction=null;
+		EntityManager entityManager=null;
+		
+		try {
+			EntityManagerFactory entityManagerFactory= Persistence.createEntityManagerFactory("TestPersistence");
+			entityManager  = entityManagerFactory.createEntityManager();
+			 entityTransaction = entityManager.getTransaction();
+			 entityTransaction.begin();
+			 Product p = entityManager.find(Product.class, 101);
+			 p.setPname("Mobile");
+			 System.out.println("Record Updated Successfully");
+			 entityTransaction.commit();
+		}
+			 catch (Exception e) 
+			 {
+				e.printStackTrace();
+				entityTransaction.rollback();
+			}
+		entityManager.close();
+
+		}//end of class
+	
+		
+	}
+
+
+***************************Delete Record remove() method*********************************
+
+package com.ustglobal.jpawithhiberanteapp;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
+
+import com.ustglobal.jpawithhiberanteapp.dto.Product;
+
+public class DeleteDemo 
+{
+	public static void main(String[] args) 
+	{
+		EntityTransaction entityTransaction=null;
+		EntityManager entityManager=null;
+		
+		try {
+			EntityManagerFactory entityManagerFactory= Persistence.createEntityManagerFactory("TestPersistence");
+			entityManager  = entityManagerFactory.createEntityManager();
+			 entityTransaction = entityManager.getTransaction();
+			 entityTransaction.begin();
+			 Product p = entityManager.find(Product.class, 101);
+			 
+			 entityManager.remove(p);  //to remove
+			 
+			 System.out.println("Record Deleted Successfully");
+			 entityTransaction.commit();
+		}
+			 catch (Exception e) 
+			 {
+				e.printStackTrace();
+				entityTransaction.rollback();
+			}
+		entityManager.close();
+
+		}//end of class
+	
+		
+	}
+
+
+****************************getReference() method************************************
+
+package com.ustglobal.jpawithhiberanteapp;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
+
+
+import com.ustglobal.jpawithhiberanteapp.dto.Product;
+
+public class getReference 
+{
+
+	public static void main(String[] args)
+	{
+		EntityTransaction transaction=null;
+		EntityManager entityManager=null;
+		
+		
+		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("TestPersistence");
+		entityManager=entityManagerFactory.createEntityManager();
+		
+		Product productDetails =  entityManager.getReference(Product.class, 102);
+		
+		System.out.println("ID--" + productDetails.getPid());
+		System.out.println("Name is--" + productDetails.getPname());
+		System.out.println("Quantity is--" + productDetails.getQty());
+		
+		entityManager.close();
+
+	}
+
+}
+
+
+
+**********************************Contains() , Detached() and Merge() method*****************************
+
+package com.ustglobal.jpawithhiberanteapp;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
+
+import com.ustglobal.jpawithhiberanteapp.dto.Product;
+
+public class reAttachingDemo 
+{
+	public static void main(String[] args) 
+	{
+
+		EntityTransaction entityTransaction=null;
+		EntityManager entityManager=null;
+
+		try {
+			EntityManagerFactory entityManagerFactory= Persistence.createEntityManagerFactory("TestPersistence");
+			entityManager  = entityManagerFactory.createEntityManager();
+			entityTransaction = entityManager.getTransaction();
+			entityTransaction.begin();
+			Product p = entityManager.find(Product.class, 102);
+
+			System.out.println(entityManager.contains(p)); 
+			entityManager.detach(p);			//detach 
+			System.out.println(entityManager.contains(p));
+			
+			Product p1 = entityManager.merge(p);  //merge method we will use to reattach the detached object
+			p1.setPname("Suhel"); 							 //to Update
+
+			System.out.println("Record Updated Successfully");
+			entityTransaction.commit();
+		}
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+			entityTransaction.rollback();
+		}
+		entityManager.close();
+
+
+	} //end of the main
+} //end of class
+
+*************************JPQL Retreive the data**********************************************
+
+package com.ustglobal.JPQL;
+
+import javax.persistence.Query;
+
+import com.ustglobal.jpawithhiberanteapp.dto.Product;
+
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
+
+public class RetrieveData 
+{
+	public static void main(String[] args)
+	{
+		EntityTransaction entityTransaction=null;
+		EntityManager entityManager=null;
+		
+		EntityManagerFactory entityManagerFactory= Persistence.createEntityManagerFactory("TestPersistence");
+		entityManager  = entityManagerFactory.createEntityManager();
+		String jpql = "from Product";
+		Query query=entityManager.createQuery(jpql);
+		
+		List<Product> p = query.getResultList();
+		for(Product  str : p)
+		{
+			System.out.println(str.getPid());
+			System.out.println(str.getPname());
+			System.out.println(str.getQty());
+		}
+		
+		entityManager.close();
+		
+	} // end of main method
+} // end of Class
+
+*********************************************jpql Delete Query***************************
+
+package com.ustglobal.JPQL;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
+
+public class DeleteQuery 
+{
+	private static EntityTransaction transaction;
+
+	public static void main(String[] args)
+	{
+		EntityTransaction entityTransaction=null;
+		EntityManager entityManager=null;
+		
+		try {
+			EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("TestPersistence");
+			entityManager = entityManagerFactory.createEntityManager();
+			transaction = entityManager.getTransaction();
+			transaction.begin();
+			String jpql = "delete from Product where pid=102";
+			Query query = entityManager.createQuery(jpql);
+			int result = query.executeUpdate();
+			System.out.println(result);
+			transaction.commit();
+			System.out.println("Deleted Successfully");
+		} catch(Exception e)
+		{
+			e.printStackTrace();
+			transaction.rollback();
+		
+		} finally {
+			entityManager.close();
+		}
+	}
+}
+*****************************JPQL Upadet Query****************************************
+
+package com.ustglobal.JPQL;
+
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
+import javax.transaction.Transaction;
+
+public class UpadateQuery 
+{
+	private static EntityTransaction transaction;
+
+	public static void main(String[] args)
+	{
+		EntityTransaction entityTransaction=null;
+		EntityManager entityManager=null;
+		
+		try {
+			EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("TestPersistence");
+			entityManager = entityManagerFactory.createEntityManager();
+			transaction = entityManager.getTransaction();
+			transaction.begin();
+			String jpql = "update Product set pname='watch' where pid=103";
+			Query query = entityManager.createQuery(jpql);
+			int result = query.executeUpdate();
+			System.out.println(result);
+			transaction.commit();
+			System.out.println("Updated Successfully");
+		} catch(Exception e)
+		{
+			e.printStackTrace();
+			transaction.rollback();
+		
+		} finally {
+			entityManager.close();
+		}
+	}
+}
+
+*********************************Delete Dyanmic Query***********************************
+package com.ustglobal.JPQL;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
+
+public class DeleteDynamicQuery {
+
+	private static EntityTransaction transaction;
+
+	public static void main(String[] args)
+	{
+		EntityTransaction entityTransaction=null;
+		EntityManager entityManager=null;
+		
+		try {
+			EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("TestPersistence");
+			entityManager = entityManagerFactory.createEntityManager();
+			transaction = entityManager.getTransaction();
+			transaction.begin();
+			String jpql = "delete from Product where pid=:id";
+			Query query = entityManager.createQuery(jpql);
+			query.setParameter("id", 103);
+			int result = query.executeUpdate();
+			System.out.println(result);
+			transaction.commit();
+			System.out.println("deleted Dynamic query Successfully");
+		} catch(Exception e)
+		{
+			e.printStackTrace();
+			transaction.rollback();
+		
+		} finally {
+			entityManager.close();
+		}
+
+	}
+
+}
+*********************************************
+

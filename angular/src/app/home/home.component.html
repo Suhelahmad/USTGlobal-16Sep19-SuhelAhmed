@@ -1,0 +1,19 @@
+<!-- <h1>Home Component</h1>
+<div class="card" id="card" style="width: 18rem;">
+    <img src="https://cdn.pixabay.com/photo/2019/09/27/15/26/squirrel-4508743_1280.jpg" class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">Squirrel</h5>
+      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+       <a href="#" class="btn btn-primary">Go somewhere</a> -->
+    <!-- </div>
+  </div> --> 
+
+  <div class="continer col-md-8 offset-2 card card-body" *ngFor="let new of news">
+    <img src="{{new.urlToImage}}" alt="">
+    <h1>{{new.title}}</h1>
+
+
+
+
+
+  </div>

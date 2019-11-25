@@ -1,0 +1,1053 @@
+  
+
+
+CREATE TABLE
+
+SQL> CREATE TABLE EMP (
+  2   EMPNO NUMBER(10),
+  3  ENMAE VARCHAR(20),
+  4   JOB VARCHAR(20),
+  5   NGR NUMBER(10),
+  6  HIREDATE DATE,
+  7   SAL NUMBER(10),
+  8  COMM NUMBER(10),
+  9  DEPTNO NUMBER(10)
+ 10  );
+
+Table created.
+--------------------------------------------------------------------------------------------------------------------------------
+SQL> DESC EMP;
+ Name                                                              Null?    Type
+ ----------------------------------------------------------------- -------- ------------------------
+ EMPNO                                                                      NUMBER(10)
+ ENMAE                                                                      VARCHAR2(20)
+ JOB                                                                        VARCHAR2(20)
+ NGR                                                                        NUMBER(10)
+ HIREDATE                                                                   DATE
+ SAL                                                                        NUMBER(10)
+ COMM                                                                       NUMBER(10)
+ DEPTNO                                                                     NUMBER(10)
+------------------------------------------------------------------------------------------------------------------------
+SQL> INSERT INTO EMP VALUES(17,'KING','SALESMAN',6542,'15-APR
+
+1 row created.
+-----------------------------------------------------------------------------------------
+SQL> SELECT DISTINCT DEPTNO,JOB
+  2  FROM EMP;
+
+    DEPTNO JOB
+---------- --------------------
+        30 SALESMAN
+        10 ANALYST
+        10 SALESMAN
+        20 CLEARK
+        30 MANAGER
+        10 MANAGER
+        40 CLEARK
+
+7 rows selected.
+---------------------------------------------------------------------------
+
+SQL> SELECT DISTINCT DEPTNO
+  2  FROM EMP;
+
+    DEPTNO
+----------
+        30
+        20
+        40
+        10
+--------------------------------------------------------------------------------
+SQL> SELECT 1+4
+  2  FROM DUAL;
+
+       1+4
+----------
+         5
+
+SQL> SELECT 'JSPIDERS'
+  2  FROM DUAL;
+
+'JSPIDER
+--------
+JSPIDERS
+
+SQL> SELECT '28-FEB-2019'
+  2  FROM DUAL;
+
+'28-FEB-201
+-----------
+28-FEB-2019
+-------------------------------------------------------------------------------------
+CHANGE COLUMN NAME:
+
+SQL> SELECT  ENMAE AS EMPNAME
+  2  FROM EMP;
+
+EMPNAME
+--------------------
+SUHEL
+SMITH
+ALLIEN
+WARD
+JONES
+MARTIN
+KING
+
+7 rows selected.
+----------------------------------------------------------------------------------------
+
+SQL> SELECT ENMAE "EMPLYEE NAME"
+  2  FROM EMP;
+
+EMPLYEE NAME
+--------------------
+SUHEL
+SMITH
+ALLIEN
+WARD
+JONES
+MARTIN
+KING
+
+7 rows selected.
+--------------------------------------------------------------------------------
+
+SQL> SELECT ENMAE  EMPLOYEE_NAME
+  2  FROM EMP;
+
+EMPLOYEE_NAME
+--------------------
+SUHEL
+SMITH
+ALLIEN
+WARD
+JONES
+MARTIN
+KING
+
+7 rows selected.
+-------------------------------------------------------------------------------------------
+
+SQL>  SELECT *
+  2   FROM EMP
+  3   WHERE DEPTNO=10;
+
+     EMPNO ENMAE                JOB                         NGR HIREDATE         SAL       COMM     DEPTNO
+---------- -------------------- -------------------- ---------- --------- ---------- ---------- ----
+        14 WARD                 MANAGER                    8551 31-JAN-19       1365       3000         10
+        16 MARTIN               ANALYST                    8541 18-JUL-95       1874       5412         10
+        17 KING                 SALESMAN                   6542 15-APR-16       1526       9865         10
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+ SELECT * 
+ FROM EMP
+ WHERE JOB='MANAGER';
+
+ EMPNO ENMAE                JOB                         NGR HIREDATE         SAL       COMM     DEPTNO
+------ -------------------- -------------------- ---------- --------- ---------- ---------- ----
+    13 ALLIEN               MANAGER                    7521 21-FEB-17       1250        500         30
+    14 WARD                 MANAGER                    8551 31-JAN-19       1365       3000         10
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+SQL> SELECT * 
+  2  FROM EMP
+  3  WHERE DEPTNO=10 AND SAL > 1000;
+
+     EMPNO ENMAE                JOB                         NGR HIREDATE         SAL       COMM     DEPTNO
+---------- -------------------- -------------------- ---------- --------- ---------- ---------- ----
+        14 WARD                 MANAGER                    8551 31-JAN-19       1365       3000         10
+        16 MARTIN               ANALYST                    8541 18-JUL-95       1874       5412         10
+        17 KING                 SALESMAN                   6542 15-APR-16       1526       9865         10
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+SQL>  SELECT ENMAE,JOB,SAL,COMM
+  2  FROM EMP
+  3  WHERE SAL > 1500;
+
+ENMAE                JOB                         SAL       COMM
+-------------------- -------------------- ---------- ----------
+JONES                CLEARK                     1525       2130
+MARTIN               ANALYST                    1874       5412
+KING                 SALESMAN                   1526       9865
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+SQL>  SELECT * 
+  2   FROM EMP
+  3   WHERE JOB='ANALYST' OR JOB='SALESMAN';
+
+     EMPNO ENMAE                JOB                         NGR HIREDATE         SAL       COMM     DEPTNO
+---------- -------------------- -------------------- ---------- --------- ---------- ---------- ----
+        12 SMITH                SALESMAN                   7489 28-NOV-17        900        200         30
+        16 MARTIN               ANALYST                    8541 18-JUL-95       1874       5412         10
+        17 KING                 SALESMAN                   6542 15-APR-16       1526       9865         10
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+SQL> 
+SQL> SELECT *
+  2  FROM EMP
+  3  WHERE DEPTNO=10 OR DEPTNO=20 OR DEPTNO=30;
+
+     EMPNO ENMAE                JOB                         NGR HIREDATE         SAL       COMM     DEPTNO
+---------- -------------------- -------------------- ---------- --------- ---------- ---------- ----
+        11 SUHEL                CLEARK                     7982 17-DEC-18        800        300         20
+        12 SMITH                SALESMAN                   7489 28-NOV-17        900        200         30
+        13 ALLIEN               MANAGER                    7521 21-FEB-17       1250        500         30
+        14 WARD                 MANAGER                    8551 31-JAN-19       1365       3000         10
+        16 MARTIN               ANALYST                    8541 18-JUL-95       1874       5412         10
+        17 KING                 SALESMAN                   6542 15-APR-16       1526       9865         10
+
+6 rows selected.
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+SQL> SELECT * 
+  2  FROM EMP
+  3  WHERE JOB='ANALYST' OR JOB='CLEARK' OR JOB='SALESMAN' OR JOB='MANAGER';
+
+     EMPNO ENMAE                JOB                         NGR HIREDATE         SAL       COMM     DEPTNO
+---------- -------------------- -------------------- ---------- --------- ---------- ---------- ----
+        11 SUHEL                CLEARK                     7982 17-DEC-18        800        300         20
+        12 SMITH                SALESMAN                   7489 28-NOV-17        900        200         30
+        13 ALLIEN               MANAGER                    7521 21-FEB-17       1250        500         30
+        14 WARD                 MANAGER                    8551 31-JAN-19       1365       3000         10
+        15 JONES                CLEARK                     4821 01-MAR-18       1525       2130         40
+        16 MARTIN               ANALYST                    8541 18-JUL-95       1874       5412         10
+        17 KING                 SALESMAN                   6542 15-APR-16       1526       9865         10
+
+7 rows selected.
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+USING IN OPERTOR 
+
+SQL> SELECT * 
+  2  FROM EMP
+  3  WHERE DEPTNO IN(10,20);
+
+     EMPNO ENMAE                JOB                         NGR HIREDATE         SAL       COMM     DEPTNO
+---------- -------------------- -------------------- ---------- --------- ---------- ---------- ----
+        11 SUHEL                CLEARK                     7982 17-DEC-18        800        300         20
+        14 WARD                 MANAGER                    8551 31-JAN-19       1365       3000         10
+        16 MARTIN               ANALYST                    8541 18-JUL-95       1874       5412         10
+        17 KING                 SALESMAN                   6542 15-APR-16       1526       9865         10
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+SQL> SELECT *
+  2  FROM EMP
+  3  WHERE DEPTNO IN(10,20,30);
+
+     EMPNO ENMAE                JOB                         NGR HIREDATE         SAL       COMM     DEPTNO
+---------- -------------------- -------------------- ---------- --------- ---------- ---------- ----
+        11 SUHEL                CLEARK                     7982 17-DEC-18        800        300         20
+        12 SMITH                SALESMAN                   7489 28-NOV-17        900        200         30
+        13 ALLIEN               MANAGER                    7521 21-FEB-17       1250        500         30
+        14 WARD                 MANAGER                    8551 31-JAN-19       1365       3000         10
+        16 MARTIN               ANALYST                    8541 18-JUL-95       1874       5412         10
+        17 KING                 SALESMAN                   6542 15-APR-16       1526       9865         10
+
+6 rows selected.
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+SQL>  SELECT *
+  2   FROM EMP
+  3   WHERE JOB IN('CLEARK','MANAGER','ANALYST','SALESMAN');
+
+     EMPNO ENMAE                JOB                         NGR HIREDATE         SAL       COMM     DEPTNO
+---------- -------------------- -------------------- ---------- --------- ---------- ---------- ----
+        11 SUHEL                CLEARK                     7982 17-DEC-18        800        300         20
+        12 SMITH                SALESMAN                   7489 28-NOV-17        900        200         30
+        13 ALLIEN               MANAGER                    7521 21-FEB-17       1250        500         30
+        14 WARD                 MANAGER                    8551 31-JAN-19       1365       3000         10
+        15 JONES                CLEARK                     4821 01-MAR-18       1525       2130         40
+        16 MARTIN               ANALYST                    8541 18-JUL-95       1874       5412         10
+        17 KING                 SALESMAN                   6542 15-APR-16       1526       9865         10
+
+7 rows selected.
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+
+SQL> SELECT * 
+  2  FROM EMP
+  3  WHERE DEPTNO IN(10,20,30) AND
+  4  JOB IN ('CLEARK','MANAGER','ANALYST','SALESMAN');
+
+     EMPNO ENMAE                JOB                         NGR HIREDATE         SAL       COMM     DEPTNO
+---------- -------------------- -------------------- ---------- --------- ---------- ---------- ----
+        11 SUHEL                CLEARK                     7982 17-DEC-18        800        300         20
+        12 SMITH                SALESMAN                   7489 28-NOV-17        900        200         30
+        13 ALLIEN               MANAGER                    7521 21-FEB-17       1250        500         30
+        14 WARD                 MANAGER                    8551 31-JAN-19       1365       3000         10
+        16 MARTIN               ANALYST                    8541 18-JUL-95       1874       5412         10
+        17 KING                 SALESMAN                   6542 15-APR-16       1526       9865         10
+
+6 rows selected.
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+SQL> SELECT * 
+  2  FROM EMP
+  3  WHERE COMM IS NOT NULL;
+
+     EMPNO ENMAE                JOB                         NGR HIREDATE         SAL       COMM     DEPTNO
+---------- -------------------- -------------------- ---------- --------- ---------- ---------- ----
+        11 SUHEL                CLEARK                     7982 17-DEC-18        800        300         20
+        12 SMITH                SALESMAN                   7489 28-NOV-17        900        200         30
+        13 ALLIEN               MANAGER                    7521 21-FEB-17       1250        500         30
+        14 WARD                 MANAGER                    8551 31-JAN-19       1365       3000         10
+        15 JONES                CLEARK                     4821 01-MAR-18       1525       2130         40
+        16 MARTIN               ANALYST                    8541 18-JUL-95       1874       5412         10
+        17 KING                 SALESMAN                   6542 15-APR-16       1526       9865         10
+
+7 rows selected.
+-------------------------------------------------------------------------------------------------------------------------------
+
+
+SQL>  SELECT *
+  2   FROM EMP
+  3   WHERE SAL BETWEEN 100 AND 1000;
+
+     EMPNO ENMAE                JOB                         NGR HIREDATE         SAL       COMM     DEPTNO
+---------- -------------------- -------------------- ---------- --------- ---------- ---------- ----
+        11 SUHEL                CLEARK                     7982 17-DEC-18        800        300         20
+        12 SMITH                SALESMAN                   7489 28-NOV-17        900        200         30
+------------------------------------------------------------------------------------------------------------------------------------------
+
+
+SQL> SELECT *
+  2  FROM EMP
+  3  WHERE DEPTNO NOT IN(20);
+
+     EMPNO ENMAE                JOB                         NGR HIREDATE         SAL       COMM     DEPTNO
+---------- -------------------- -------------------- ---------- --------- ---------- ---------- ----
+        12 SMITH                SALESMAN                   7489 28-NOV-17        900        200         30
+        13 ALLIEN               MANAGER                    7521 21-FEB-17       1250        500         30
+        14 WARD                 MANAGER                    8551 31-JAN-19       1365       3000         10
+        15 JONES                CLEARK                     4821 01-MAR-18       1525       2130         40
+        16 MARTIN               ANALYST                    8541 18-JUL-95       1874       5412         10
+        17 KING                 SALESMAN                   6542 15-APR-16       1526       9865         10
+
+6 rows selected.
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+SQL> SELECT *
+  2  FROM EMP
+  3  WHERE COMM IS NOT NULL;
+
+     EMPNO ENMAE                JOB                         NGR HIREDATE         SAL       COMM     DEPTNO
+---------- -------------------- -------------------- ---------- --------- ---------- ---------- ----
+        11 SUHEL                CLEARK                     7982 17-DEC-18        800        300         20
+        12 SMITH                SALESMAN                   7489 28-NOV-17        900        200         30
+        13 ALLIEN               MANAGER                    7521 21-FEB-17       1250        500         30
+        14 WARD                 MANAGER                    8551 31-JAN-19       1365       3000         10
+        15 JONES                CLEARK                     4821 01-MAR-18       1525       2130         40
+        16 MARTIN               ANALYST                    8541 18-JUL-95       1874       5412         10
+        17 KING                 SALESMAN                   6542 15-APR-16       1526       9865         10
+
+7 rows selected.
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+SQL> SELECT *
+  2  FROM EMP
+  3  WHERE SAL NOT BETWEEN 2000 AND 4000;
+
+     EMPNO ENMAE                JOB                         NGR HIREDATE         SAL       COMM     DEPTNO
+---------- -------------------- -------------------- ---------- --------- ---------- ---------- ----
+        11 SUHEL                CLEARK                     7982 17-DEC-18        800        300         20
+        12 SMITH                SALESMAN                   7489 28-NOV-17        900        200         30
+        13 ALLIEN               MANAGER                    7521 21-FEB-17       1250        500         30
+        14 WARD                 MANAGER                    8551 31-JAN-19       1365       3000         10
+        15 JONES                CLEARK                     4821 01-MAR-18       1525       2130         40
+        16 MARTIN               ANALYST                    8541 18-JUL-95       1874       5412         10
+        17 KING                 SALESMAN                   6542 15-APR-16       1526       9865         10
+
+7 rows selected.
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+SQL> SELECT * 
+  2  FROM EMP
+  3  WHERE SAL BETWEEN 1000 AND 3000;
+
+     EMPNO ENMAE                JOB                         NGR HIREDATE         SAL       COMM     DEPTNO
+---------- -------------------- -------------------- ---------- --------- ---------- ---------- ----
+        13 ALLIEN               MANAGER                    7521 21-FEB-17       1250        500         30
+        14 WARD                 MANAGER                    8551 31-JAN-19       1365       3000         10
+        15 JONES                CLEARK                     4821 01-MAR-18       1525       2130         40
+        16 MARTIN               ANALYST                    8541 18-JUL-95       1874       5412         10
+        17 KING                 SALESMAN                   6542 15-APR-16       1526       9865         10
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+
+SQL> SELECT *
+  2  FROM EMP
+  3  WHERE NGR IS NOT NULL;
+
+     EMPNO ENMAE                JOB                         NGR HIREDATE         SAL       COMM     DEPTNO
+---------- -------------------- -------------------- ---------- --------- ---------- ---------- ----
+        11 SUHEL                CLEARK                     7982 17-DEC-18        800        300         20
+        12 SMITH                SALESMAN                   7489 28-NOV-17        900        200         30
+        13 ALLIEN               MANAGER                    7521 21-FEB-17       1250        500         30
+        14 WARD                 MANAGER                    8551 31-JAN-19       1365       3000         10
+        15 JONES                CLEARK                     4821 01-MAR-18       1525       2130         40
+        16 MARTIN               ANALYST                    8541 18-JUL-95       1874       5412         10
+        17 KING                 SALESMAN                   6542 15-APR-16       1526       9865         10
+
+7 rows selected.
+-------------------------------------------------------------------------------------------------------------------------
+
+SQL>  SELECT *
+  2   FROM EMP
+  3   WHERE DEPTNO IN(10,20) AND JOB=('CLEARK');
+
+     EMPNO ENMAE                JOB                         NGR HIREDATE         SAL       COMM     DEPTNO
+---------- -------------------- -------------------- ---------- --------- ---------- ---------- ----
+        11 SUHEL                CLEARK                     7982 17-DEC-18        800        300         20
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+
+SQL>  SELECT *
+  2   FROM EMP
+  3   WHERE SAL>1500 AND SAL<3000;
+
+     EMPNO ENMAE                JOB                         NGR HIREDATE         SAL       COMM     DEPTNO
+---------- -------------------- -------------------- ---------- --------- ---------- ---------- ----
+        15 JONES                CLEARK                     4821 01-MAR-18       1525       2130         40
+        16 MARTIN               ANALYST                    8541 18-JUL-95       1874       5412         10
+        17 KING                 SALESMAN                   6542 15-APR-16       1526       9865         10
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+QUERY WHO IS WORKING AS MANAGER IN DEPTN0 10,20,30.
+
+SQL> SELECT *
+  2  FROM EMP
+  3  WHERE DEPTNO IN(10,20,30) AND JOB=('MANAGER');
+
+     EMPNO ENMAE                JOB                         NGR HIREDATE         SAL       COMM     DEPTNO
+---------- -------------------- -------------------- ---------- --------- ---------- ---------- ----
+        13 ALLIEN               MANAGER                    7521 21-FEB-17       1250        500         30
+        14 WARD                 MANAGER                    8551 31-JAN-19       1365       3000         10
+
+----------------------------------------------------------------------------------------------------------------------------------
+QUERY NOT WORKING AS MANAGER BUT EARNING MORE THEN 1000
+
+SQL> SELECT *
+  2  FROM EMP
+  3  WHERE JOB NOT IN('MANAGER') AND SAL > 1000;
+
+     EMPNO ENMAE                JOB                         NGR HIREDATE         SAL       COMM     DEPTNO
+---------- -------------------- -------------------- ---------- --------- ---------- ---------- ----
+        15 JONES                CLEARK                     4821 01-MAR-18       1525       2130         40
+        16 MARTIN               ANALYST                    8541 18-JUL-95       1874       5412         10
+        17 KING                 SALESMAN                   6542 15-APR-16       1526       9865         10
+-------------------------------------------------------------------------------------------------------------------------------------------
+WHO IS NOT WORKING AS CLEARK AND ANALYST
+
+SQL> SELECT *
+  2  FROM EMP
+  3  WHERE JOB NOT IN ('ANALYST','CLEARK');
+
+     EMPNO ENMAE                JOB                         NGR HIREDATE         SAL       COMM     DEPTNO
+---------- -------------------- -------------------- ---------- --------- ---------- ---------- ----
+        12 SMITH                SALESMAN                   7489 28-NOV-17        900        200         30
+        13 ALLIEN               MANAGER                    7521 21-FEB-17       1250        500         30
+        14 WARD                 MANAGER                    8551 31-JAN-19       1365       3000         10
+        17 KING                 SALESMAN                   6542 15-APR-16       1526       9865         10
+------------------------------------------------------------------------------------------------------------------------------------------
+
+
+SQL> SELECT *
+  2  FROM EMP
+  3  WHERE JOB=UPPER('manager');
+
+     EMPNO ENMAE                JOB                         NGR HIREDATE         SAL       COMM     DEPTNO
+---------- -------------------- -------------------- ---------- --------- ---------- ---------- ----
+        13 ALLIEN               MANAGER                    7521 21-FEB-17       1250        500         30
+        14 WARD                 MANAGER                    8551 31-JAN-19       1365       3000         10
+
+---------------------------------------------------------------------------------------------------------------------------------------
+
+
+SQL> SELECT LOWER('SUHEL')
+  2  FROM DUAL;
+
+LOWER
+-----
+suhel
+
+SQL> SELECT LOWER('SUHEL'),LOWER('SURAJA')
+  2  FROM DUAL;
+
+LOWER LOWER(
+----- ------
+suhel suraja
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+
+SQL> UPDATE EMP
+  2  SET JOB='salesman'
+  3  WHERE JOB='SALESMAN';
+
+2 rows updated.
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+SQL> SELECT *
+  2  FROM EMP
+  3  WHERE JOB=LOWER('SALESMAN');
+
+     EMPNO ENMAE                JOB                         NGR HIREDATE         SAL       COMM     DEPTNO
+---------- -------------------- -------------------- ---------- --------- ---------- ---------- ----
+        12 SMITH                salesman                   7489 28-NOV-17        900        200         30
+        17 KING                 salesman                   6542 15-APR-16       1526       9865         10
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+SQL> SELECT UPPER('suhel'),LOWER('suraja')
+  2  FROM DUAL;
+
+UPPER LOWER(
+----- ------
+SUHEL suraja
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+SQL> SELECT INITCAP('Suhel Suraja')
+  2  FROM DUAL;
+
+INITCAP('SUH
+------------
+Suhel Suraja
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+
+SQL> SELECT UPPER('sUraja'), LOWER('sUHJA'),INITCAP('suhjaaa')
+  2  from dual;
+
+UPPER( LOWER INITCAP
+------ ----- -------
+SURAJA suhja Suhjaaa
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+SQL> SELECT ENMAE,LENGTH(ENMAE)
+  2  FROM EMP;
+
+ENMAE                LENGTH(ENMAE)
+-------------------- -------------
+SUHEL                            5
+SMITH                            5
+ALLIEN                           6
+WARD                             4
+JONES                            5
+MARTIN                           6
+KING                             4
+
+7 rows selected.
+
+---------------------------------------------------------------------------------------------------------------------
+
+
+SQL> SELECT *
+  2  FROM EMP
+  3  WHERE LENGTH(ENMAE)=5;
+
+     EMPNO ENMAE                JOB                         NGR HIREDATE         SAL       COMM     DEPTNO
+---------- -------------------- -------------------- ---------- --------- ---------- ---------- ----
+        11 SUHEL                CLEARK                     7982 17-DEC-18        800        300         20
+        12 SMITH                salesman                   7489 28-NOV-17        900        200         30
+        15 JONES                CLEARK                     4821 01-MAR-18       1525       2130         40
+----------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+SQL> SELECT *
+  2  FROM EMP
+  3  WHERE LENGTH(ENMAE)>=4;
+
+     EMPNO ENMAE                JOB                         NGR HIREDATE         SAL       COMM     DEPTNO
+---------- -------------------- -------------------- ---------- --------- ---------- ---------- ----
+        11 SUHEL                CLEARK                     7982 17-DEC-18        800        300         20
+        12 SMITH                salesman                   7489 28-NOV-17        900        200         30
+        13 ALLIEN               MANAGER                    7521 21-FEB-17       1250        500         30
+        14 WARD                 MANAGER                    8551 31-JAN-19       1365       3000         10
+        15 JONES                CLEARK                     4821 01-MAR-18       1525       2130         40
+        16 MARTIN               ANALYST                    8541 18-JUL-95       1874       5412         10
+        17 KING                 salesman                   6542 15-APR-16       1526       9865         10
+
+7 rows selected.
+
+---------------------------------------------------------------------------------------------------------------------------------------------
+SQL> SELECT ENMAE,REVERSE(ENMAE)
+  2  FROM EMP;
+
+ENMAE                REVERSE(ENMAE)
+-------------------- --------------------
+SUHEL                LEHUS
+SMITH                HTIMS
+ALLIEN               NEILLA
+WARD                 DRAW
+JONES                SENOJ
+MARTIN               NITRAM
+KING                 GNIK
+
+7 rows selected.
+
+----------------------------------------------------------------------------------------------------------
+
+
+SQL>  UPDATE EMP
+  2   SET ENMAE='NITIN'
+  3  WHERE ENMAE='JONES';
+
+1 row updated.
+
+--------------------------------------------------------------------------------
+PALINDROME NAME
+
+SQL> SELECT *
+  2  FROM EMP
+  3  WHERE REVERSE (ENMAE)=ENMAE;
+
+     EMPNO ENMAE                JOB                         NGR HIREDATE         SAL       COMM     DEPTNO
+---------- -------------------- -------------------- ---------- --------- ---------- ---------- ----
+        15 NITIN                CLEARK                     4821 01-MAR-18       1525       2130         40
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+PRINT FIRST CHARACTER WITH NAME
+SQL> SELECT ENMAE,SUBSTR(ENMAE,1,1)
+  2  FROM EMP;
+
+ENMAE                S
+-------------------- -
+SUHEL                S
+SMITH                S
+ALLIEN              A
+WARD                 W
+NITIN                 N
+MARTIN            M
+KING                  K
+
+7 rows selected.
+-------------------------------------------------------------------------------------------------------
+FIRST AND SECOND CHARACTER
+
+SQL> SELECT ENMAE,SUBSTR(ENMAE,1,2)
+  2  FROM EMP;
+
+ENMAE                SU
+-------------------- --
+SUHEL                SU
+SMITH                SM
+ALLIEN               AL
+WARD                 WA
+NITIN                NI
+MARTIN               MA
+KING                 KI
+
+----------------------------------------------------------------------------------------------------------------------------------
+;LAST BUT ONE CHARACTER
+
+SQL> SELECT ENMAE,SUBSTR(ENMAE,-2,1)
+  2  FROM EMP;
+
+ENMAE                S
+-------------------- -
+SUHEL                E
+SMITH                T
+ALLIEN               E
+WARD                 R
+NITIN                I
+MARTIN               I
+KING                 N
+
+7 rows selected.
+
+------------------------------------------------------------------------------------------------------------
+
+SQL>  SELECT *
+  2  FROM EMP
+  3  WHERE SUBSTR(ENMAE,1,1)='S';
+
+     EMPNO ENMAE                JOB                         NGR HIREDATE         SAL       COMM     DEPTNO
+---------- -------------------- -------------------- ---------- --------- ---------- ---------- ----
+        11 SUHEL                CLEARK                     7982 17-DEC-18        800        300         20
+        12 SMITH                salesman                   7489 28-NOV-17        900        200         30
+
+-----------------------------------------------------------------------------------------------------------------------------------------------
+
+
+SQL> select empno,enmae,sal,comm,nvl2(comm,sal+comm,sal)m_sal
+  2  from emp;
+
+     EMPNO ENMAE                       SAL       COMM      M_SAL
+---------- -------------------- ---------- ---------- ----------
+        11 SUHEL                       800        300       1100
+        12 SMITH                       900        200       1100
+        13 ALLIEN                     1250        500       1750
+        14 WARD                       1365       3000       4365
+        15 NITIN                      1525       2130       3655
+        16 MARTIN                     1874       5412       7286
+        17 KING                       1526       9865      11391
+
+7 rows selected.
+
+-----------------------------------------------------------------------------------------------------------------------------
+
+
+SQL> SELECT DEPTNO,JOB
+  2  FROM EMP
+  3  ORDER BY DEPTNO ASC;
+
+    DEPTNO JOB
+---------- --------------------
+        10 MANAGER
+        10 ANALYST
+        10 salesman
+        20 CLEARK
+        30 MANAGER
+        30 salesman
+        40 CLEARK
+
+----------------------------------------------------------------------
+
+
+SQL>  SELECT DEPTNO,JOB
+  2   FROM EMP
+  3   ORDER BY DEPTNO DESC, JOB DESC;
+
+    DEPTNO JOB
+---------- --------------------
+        40 CLEARK
+        30 salesman
+        30 MANAGER
+        20 CLEARK
+        10 salesman
+        10 MANAGER
+        10 ANALYST
+
+7 rows selected.
+
+SQL>  SELECT DEPTNO,JOB
+  2   FROM EMP
+  3   ORDER BY DEPTNO ASC,JOB DESC;
+
+    DEPTNO JOB
+---------- --------------------
+        10 salesman
+        10 MANAGER
+        10 ANALYST
+        20 CLEARK
+        30 salesman
+        30 MANAGER
+        40 CLEARK
+
+7 rows selected.
+--------------------------------------------------------------------------------------------------------------
+
+SQL> SELECT *
+  2  FROM EMP
+  3  WHERE JOB IN('CLEARK','ANALYST','salesman')
+  4  ORDER BY SAL ASC;
+
+     EMPNO ENMAE                JOB                         NGR HIREDATE         SAL       COMM     DEPTNO
+---------- -------------------- -------------------- ---------- --------- ---------- ---------- ----
+        11 SUHEL                CLEARK                     7982 17-DEC-18        800        300         20
+        12 SMITH                salesman                   7489 28-NOV-17        900        200         30
+        15 NITIN                CLEARK                     4821 01-MAR-18       1525       2130         40
+        17 KING                 salesman                   6542 15-APR-16       1526       9865         10
+        16 MARTIN               ANALYST                    8541 18-JUL-95       1874       5412         10
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+SQL> SELECT *
+  2  FROM EMP
+  3  ORDER BY HIREDATE ASC;
+
+     EMPNO ENMAE                JOB                         NGR HIREDATE         SAL       COMM     DEPTNO
+---------- -------------------- -------------------- ---------- --------- ---------- ---------- ----
+        16 MARTIN               ANALYST                    8541 18-JUL-95       1874       5412         10
+        17 KING                 salesman                   6542 15-APR-16       1526       9865         10
+        13 ALLIEN               MANAGER                    7521 21-FEB-17       1250        500         30
+        12 SMITH                salesman                   7489 28-NOV-17        900        200         30
+        15 NITIN                CLEARK                     4821 01-MAR-18       1525       2130         40
+        11 SUHEL                CLEARK                     7982 17-DEC-18        800        300         20
+        14 WARD                 MANAGER                    8551 31-JAN-19       1365       3000         10
+
+7 rows selected.
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+SQL> SELECT ENMAE,JOB,DEPTNO,SAL
+  2  FROM EMP
+  3  ORDER BY  ENMAE,JOB,DEPTNO,SAL;
+
+ENMAE                JOB                      DEPTNO        SAL
+-------------------- -------------------- ---------- ----------
+ALLIEN               MANAGER                      30       1250
+KING                 salesman                     10       1526
+MARTIN               ANALYST                      10       1874
+NITIN                CLEARK                       40       1525
+SMITH                salesman                     30        900
+SUHEL                CLEARK                       20        800
+WARD                 MANAGER                      10       1365
+
+7 rows selected.
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+
+SQL> SAVE "F:\SQL.TXT"
+Created file F:\SQL.TXT
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+SQL>  SELECT DEPTNO,MAX(SAL)
+  2   FROM EMP
+  3   GROUP BY DEPTNO
+  4  ORDER BY DEPTNO;
+
+    DEPTNO   MAX(SAL)
+---------- ----------
+        10       1874
+        20        800
+        30       1250
+        40       1525
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
+
+SQL> SELECT JOB,MIN(SAL)
+  2  FROM EMP
+  3  GROUP BY JOB
+  4  ORDER BY JOB;
+
+JOB                    MIN(SAL)
+-------------------- ----------
+ANALYST                    1874
+CLEARK                      800
+MANAGER                    1250
+salesman                    900
+
+--------------------------------------------------------------------------------------------
+
+SQL> SELECT DEPTNO,SUM(SAL)
+  2  FROM EMP
+  3  GROUP BY DEPTNO
+  4  ORDER BY DEPTNO;
+
+    DEPTNO   SUM(SAL)
+---------- ----------
+        10       4765
+        20        800
+        30       2150
+        40       1525
+
+-------------------------------------------------------------------------------------------------------------------------
+
+
+SQL>  SELECT DEPTNO,MAX(SAL)
+  2   FROM EMP
+  3   WHERE ENMAE NOT LIKE 's%'
+  4   GROUP BY DEPTNO
+  5   ORDER BY DEPTNO;
+
+    DEPTNO   MAX(SAL)
+---------- ----------
+        10       1874
+        20        800
+        30       1250
+        40       1525
+
+-----------------------------------------------------------------------------------------------------------------------------
+
+
+SQL> SELECT SAL,COUNT(SAL)
+  2  FROM EMP
+  3  GROUP BY SAL;
+
+       SAL COUNT(SAL)
+---------- ----------
+      1250          1
+      1525          1
+      1365          1
+      1874          1
+       900          1
+      1526          1
+       800          1
+
+7 rows selected.
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
+
+SQL> SELECT JOB,AVG(SAL)
+  2  FROM EMP
+  3  WHERE JOB<>'CLEARK'
+  4  GROUP BY JOB;
+
+JOB                    AVG(SAL)
+-------------------- ----------
+salesman                   1213
+MANAGER                  1307.5
+ANALYST                    1874
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+SQL> SELECT DEPTNO,COUNT(DEPTNO)
+  2  FROM EMP
+  3  GROUP BY DEPTNO;
+
+    DEPTNO COUNT(DEPTNO)
+---------- -------------
+        30             2
+        20             1
+        40             1
+        10             3
+
+------------------------------------------------------------------------------------------------------------------------------------------
+
+SQL> SELECT DEPTNO,MAX(SAL)
+  2  FROM EMP
+  3  GROUP BY DEPTNO
+  4  HAVING MAX(SAL)>1500
+  5  ORDER BY DEPTNO;
+
+    DEPTNO   MAX(SAL)
+---------- ----------
+        10       1874
+        40       1525
+
+------------------------------------------------------------------------------------------------------------------------------------------
+
+SQL> select job,deptno,min(sal)
+  2  from emp
+  3  where deptno in(10,30)
+  4  group by job,deptno
+  5  having min(sal)<3000;
+
+JOB                      DEPTNO   MIN(SAL)
+-------------------- ---------- ----------
+ANALYST                      10       1874
+salesman                     30        900
+MANAGER                      30       1250
+MANAGER                      10       1365
+salesman                     10       1526
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+SQL> SELECT DEPTNO,AVG(SAL),SUM(SAL)
+  2  FROM EMP
+  3  GROUP BY DEPTNO
+  4  HAVING AVG(SAL)>500;
+
+    DEPTNO   AVG(SAL)   SUM(SAL)
+---------- ---------- ----------
+        30       1075       2150
+        20        800        800
+        40       1525       1525
+        10 1588.33333       4765
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+SQL> SELECT JOB,HIREDATE
+  2  FROM EMP
+  3  GROUP BY JOB,HIREDATE
+  4  HAVING HIREDATE > '18-JUL-95';
+
+JOB                  HIREDATE
+-------------------- ---------
+salesman             28-NOV-17
+MANAGER              31-JAN-19
+CLEARK               01-MAR-18
+salesman             15-APR-16
+CLEARK               17-DEC-18
+MANAGER              21-FEB-17
+
+6 rows selected.
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+SQL> SELECT  DEPTNO,COUNT(*)
+  2  FROM EMP
+  3  WHERE SAL*12>10000
+  4  GROUP BY DEPTNO;
+
+    DEPTNO   COUNT(*)
+---------- ----------
+        30          2
+        40          1
+        10          3
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+SQL> SELECT HIREDATE
+  2  FROM EMP
+  3  WHERE JOB='CLEARK' AND DEPTNO IN(20,30) AND SAL > 1000
+  4  GROUP BY HIREDATE;
+
+no rows selected
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+								SUBQUERIES
+
+
+SQL> SELECT DEPTNO
+  2  FROM EMP
+  3  WHERE ENMAE='SUHEL';
+
+    DEPTNO
+----------
+        20
+
+SQL> SELECT *
+  2  FROM EMP
+  3  WHERE DEPTNO=(SELECT DEPTNO
+  4                FROM EMP
+  5                WHERE ENMAE='SUHEL');
+
+     EMPNO ENMAE                JOB                         NGR HIREDATE         SAL       COMM     DEPTNO
+---------- -------------------- -------------------- ---------- --------- ---------- ---------- ----
+        11 SUHEL                CLEARK                     7982 17-DEC-18        800        300         20
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+SQL>  SELECT SAL
+  2   FROM EMP
+  3   WHERE ENMAE='KING';
+
+       SAL
+----------
+      1526
+
+SQL>  SELECT *
+  2   FROM EMP
+  3   WHERE SAL < (SELECT SAL
+  4                FROM EMP
+  5                WHERE ENMAE='KING');
+
+     EMPNO ENMAE                JOB                         NGR HIREDATE         SAL       COMM     DEPTNO
+---------- -------------------- -------------------- ---------- --------- ---------- ---------- ----
+        11 SUHEL                CLEARK                     7982 17-DEC-18        800        300         20
+        12 SMITH                salesman                   7489 28-NOV-17        900        200         30
+        13 ALLIEN               MANAGER                    7521 21-FEB-17       1250        500         30
+        14 WARD                 MANAGER                    8551 31-JAN-19       1365       3000         10
+        15 NITIN                CLEARK                     4821 01-MAR-18       1525       2130         40
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
