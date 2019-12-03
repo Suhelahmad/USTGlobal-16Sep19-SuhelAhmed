@@ -1,4 +1,4 @@
-package com.tyss.empspringmvc.controller;
+package com.ustglobal.empspringmvc.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
-import com.tyss.empspringmvc.dto.EmployeeBean;
-import com.tyss.empspringmvc.service.EmployeeService;
+import com.ustglobal.empspringmvc.dto.EmployeeBean;
+import com.ustglobal.empspringmvc.service.EmployeeService;
 
 @Controller
 public class EmployeeController {

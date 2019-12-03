@@ -1,11 +1,11 @@
-package com.tyss.empspringmvc.service;
+package com.ustglobal.empspringmvc.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import com.tyss.empspringmvc.dao.EmployeeDAO;
-import com.tyss.empspringmvc.dto.EmployeeBean;
+import com.ustglobal.empspringmvc.dao.EmployeeDAO;
+import com.ustglobal.empspringmvc.dto.EmployeeBean;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {

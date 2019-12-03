@@ -1,8 +1,8 @@
-package com.tyss.empspringmvc.service;
+package com.ustglobal.empspringmvc.dao;
 
-import com.tyss.empspringmvc.dto.EmployeeBean;
+import com.ustglobal.empspringmvc.dto.EmployeeBean;
 
-public interface EmployeeService {
+public interface EmployeeDAO {
 	
 	public EmployeeBean login(int id, String password);
 	public int register(EmployeeBean bean);
@@ -10,5 +10,6 @@ public interface EmployeeService {
 	public EmployeeBean searchEmployee(int id);
 	public boolean updateEmployee(EmployeeBean bean);
 	public boolean changePassword(int id, String password);
+	
 
 }

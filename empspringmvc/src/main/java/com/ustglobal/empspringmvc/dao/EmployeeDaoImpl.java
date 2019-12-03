@@ -1,4 +1,4 @@
-package com.tyss.empspringmvc.dao;
+package com.ustglobal.empspringmvc.dao;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -8,7 +8,8 @@ import javax.persistence.TypedQuery;
 
 
 import org.springframework.stereotype.Repository;
-import com.tyss.empspringmvc.dto.EmployeeBean;
+
+import com.ustglobal.empspringmvc.dto.EmployeeBean;
 @Repository
 public class EmployeeDaoImpl implements EmployeeDAO {
 @PersistenceUnit

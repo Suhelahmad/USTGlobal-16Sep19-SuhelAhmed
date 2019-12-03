@@ -1,4 +1,4 @@
-package com.tyss.empspringmvc.dto;
+package com.ustglobal.empspringmvc.dto;
 
 import java.util.Date;
 
