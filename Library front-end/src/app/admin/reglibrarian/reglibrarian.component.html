@@ -1,0 +1,36 @@
+<h3 class="bg-dark text-light" *ngIf="message">{{message}}</h3>
+<div class="col-md-4 offset-3 card card-body mt-5 mb-5">
+    <form action="" [formGroup]="form" (ngSubmit)="addLibrarian(form)">
+        <h1 class="text-center bg-primary text-white">Librarian Registration</h1>
+        <div class="form-group">
+            <input type="text" name="name" formControlName="name" id="name" class="form-control" placeholder="Enter Student Name" pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$" required>
+            <div *ngIf="name.touched && name.invalid">
+                <p *ngIf="name.errors.required" style="color: red;">* This Field Is Required</p>
+                <p *ngIf="name.errors.pattern" style="color: red;">* invalid name</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <input type="email" name="email" formControlName="email" id="email" class="form-control" placeholder="Enter email" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" required>
+            <div *ngIf="email.touched && email.invalid">
+                <p *ngIf="email.errors.required" style="color: red;">* This Field Is Required</p>
+                <p *ngIf="email.errors.pattern" style="color: red;">* invalid email</p>
+
+            </div>
+        </div>
+        <div class="form-group">
+            <input type="password" class="form-control" formControlName="password" name="password" id="password" placeholder="Enter Password" minlength="8" pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}" required>
+            <div *ngIf="password.touched && password.invalid">
+                <p *ngIf="password.errors.required" style="color: red;">* This Field Is Required</p>
+                <p *ngIf="password.errors.pattern" style="color: red;" >* Password must contain atleast one
+                    capital letter, small letter, and number.
+                </p>
+             <p *ngIf="password.errors.minlength" style="color: red;">* Character must be greater than 8</p>
+                         
+            </div>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Submit" [disabled]="form.invalid" class="btn btn-outline-success float-right">
+        </div>
+    
+    </form>
+</div>

@@ -1,0 +1,184 @@
+
+<section class="login-block">
+    <div style="background-image: url('https://cdn.pixabay.com/photo/2015/12/03/08/50/paper-1074131__480.jpg')">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 mt-5">
+          <h2 class="text-center"><u>Admin Login</u></h2>
+          <form action="" #form="ngForm" (ngSubmit)="adminLogin(form)">
+            <div class="form-group">
+                <label>User Details</label>
+              <input type="text" class="form-control" placeholder="Enter Id." name="id" id="id"
+               #id="ngModel" ngModel minlength="3" required>
+  
+              <div *ngIf="id.invalid && id.touched">
+                <p *ngIf="id.errors.required" class="text-danger">*This field is mandatory</p>
+                  <p *ngIf="id.errors.minlength" class="text-danger">*This field accepts minimum
+                    3 characters</p>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Password</label>
+              <input type="password" class="form-control" name="password"placeholder="Enter Password" #password="ngModel" ngModel required>
+              <div *ngIf="password.invalid && password.touched">
+                <p *ngIf="password.errors.required" class="text-danger">*This field is mandatory
+                  <p *ngIf="password.errors.minlength" class="text-danger">*This field accepts minimum
+                    8 characters
+              </div>
+  
+            </div>
+  
+  
+            <div class="form-group">
+                <button type="submit" class="btn btn-outline-info float-right" [disabled]="form.invalid">Login</button>
+            </div>
+  
+          </form>
+  
+        </div>
+        <div class="col-md-8 mt-5 banner-sec">
+          <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+              <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+              <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+              <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner" role="listbox">
+              <div class="carousel-item active">
+                <img class="d-block img-fluid"
+                  src="https://d3nn873nee648n.cloudfront.net/900x600/17665/20-SM786667.jpg" alt="First slide">
+                <div class="carousel-caption d-none d-md-block">
+                  <div class="banner-text">
+                      
+                    <h2  text-color="red">Library Management System</h2>
+                    <p> A library is a curated collection of sources of information and similar
+                         resources, selected by experts and made accessible to a defined community 
+                         for reference or borrowing.
+                        </p>
+                  </div>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <img class="d-block img-fluid"
+                  src="https://d3nn873nee648n.cloudfront.net/900x600/17665/17-SM786643.jpg" alt="First slide">
+                <div class="carousel-caption d-none d-md-block">
+                  <div class="banner-text">
+                    <h2>Library Management System</h2>
+                    <p> A library is organized for use and maintained by a public body,
+                        Public and institutional collections and services may be intended by
+                         an institution, or a private individual.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <img class="d-block img-fluid"
+                  src="https://d3nn873nee648n.cloudfront.net/900x600/17665/16-SM786639.jpg" alt="First slide">
+                <div class="carousel-caption d-none d-md-block">
+                  <div class="banner-text">
+                    <h2>Library Management System</h2>
+                    <p> Modern libraries are increasingly being redefined as places to get 
+                        unrestricted access to information in many formats from many sources. 
+                         by providing material accessible by electronic means.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+  
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </section> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- <div class="col-md-4 mt-5 offset-4 card card-body">
+    <h2 class="text-center text-dark bg-danger">Login Form</h2>
+    <form action="" #form="ngForm" (ngSubmit)="adminLogin(form)">
+        <div class="form-group">
+            <input type="text" name="id" id="id" #id="ngModel" ngModel class="form-control" placeholder="enter user name" required>
+        <div *ngIf="id.touched && id.invalid">
+            <p class="text-danger" *ngIf="id.errors.required">This field required</p>
+        </div>
+        </div>
+        <div class="form-group">
+                <input type="password" name="password" #password="ngModel" ngModel id="password" class="form-control" placeholder="enter password" required>
+         <div *ngIf="password.touched && password.invalid">
+            <p class="text-danger" *ngIf="password.errors.required">This field required</p>
+          </div>
+         </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-outline-success float-right" [disabled]="form.invalid">Login</button>
+        </div>
+     </form>
+</div> -->
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

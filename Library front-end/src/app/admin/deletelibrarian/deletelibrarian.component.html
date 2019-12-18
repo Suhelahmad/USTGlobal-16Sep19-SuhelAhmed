@@ -1,0 +1,15 @@
+<h3 class="card crad-body bg-danger text-light offset-2" *ngIf="message">{{message}}</h3>
+<div class="card card-body offset-3 mb-5 col-md-4 mt-5">
+    <form action="" #form="ngForm" (ngSubmit)=searchLibrarian(form)>
+    <div class="form-group">
+        <input type="search" name="lid" id="lid" #lid="ngModel" ngModel class="form-control" placeholder="enter Library ID" pattern="[0-9]{1,5}" required>
+        <div *ngIf="lid.touched && lid.invalid">
+            <p *ngIf="lid.errors.required" style="color: red;">* This Field Is Required</p>
+            <p *ngIf="lid.errors.pattern" style="color: red;">* entered ID is wrong</p>
+        </div>
+    </div>
+    <div class="form-group">
+        <button value="Submit" class="btn btn-outline-success float-right" [disabled]="form.invalid">Submit</button>
+    </div>
+</form>
+</div>

@@ -1,0 +1,15 @@
+<h3 class="card crad-body bg-danger text-light offset-2" *ngIf="message">{{message}}</h3>
+<div class="card card-body offset-3 mb-5 col-md-4 mt-5">
+        <form action="" #form="ngForm" (ngSubmit)=searchStudent(form)>
+        <div class="form-group">
+            <input type="search" name="sid" id="sid" #sid="ngModel" ngModel class="form-control" placeholder="enter student ID" pattern="[0-9]{1,5}" required>
+            <div *ngIf="sid.touched && sid.invalid">
+                <p *ngIf="sid.errors.required" style="color: red;">* This Field Is Required</p>
+                <p *ngIf="sid.errors.pattern" style="color: red;">* entered ID is wrong</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <button value="Submit" class="btn btn-outline-success float-right" [disabled]="form.invalid">Submit</button>
+        </div>
+    </form>
+    </div>

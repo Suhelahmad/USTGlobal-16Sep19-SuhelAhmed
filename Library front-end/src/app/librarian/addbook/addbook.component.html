@@ -1,0 +1,38 @@
+<div class="col-md-4 offset-4" *ngIf="bookstatus">
+<h1 class="text-center bg-primary text-success" *ngIf="bookstatus">{{bookstatus}}</h1>
+</div>
+             
+<div class="col-md-6 offset-3 mt-1 card card-body mb-1">
+    <form action="" #form="ngForm" (ngSubmit)="addBook(form)">
+            <h1 class="text-center bg-primary text-white">Add Book</h1>
+            <input type="hidden" name="status" #status="ngModel" ngModel [(ngModel)]="available">
+        <div class="form-group">
+            <input type="text" name="name" id="name" #name="ngModel" ngModel class="form-control" placeholder="Enter Book Name" pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$" required>
+            <div *ngIf="name.touched && name.invalid">
+                <p *ngIf="name.errors.required" style="color: red;">* This Field Is Required</p>
+                <p *ngIf="name.errors.pattern" style="color: red;">* invalid name</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <input type="text" name="author" id="author" class="form-control" #author="ngModel" ngModel placeholder="Enter Author Name" pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$" required>
+            <div *ngIf="author.touched && author.invalid">
+                <p *ngIf="author.errors.required" style="color: red;">* This Field Is Required</p>
+                <p *ngIf="author.errors.pattern" style="color: red;">* invalid author name</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <input type="text" name="publication" id="publication" #publication="ngModel" ngModel placeholder="Enter Publication" class="form-control" pattern="[0-9]{1,5}" required>
+            <div *ngIf="publication.touched && publication.invalid">
+                <p *ngIf="publication.errors.required" style="color: red;">* This Field Is Required</p>
+                <p *ngIf="publication.errors.pattern" style="color: red;">* entered publication is wrong</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <input type="number" name="copies" id="copies" #copies="ngModel" ngModel placeholder="Enter No Of Copies" class="form-control">
+        </div>
+        <div class="from-group">
+            <button class="btn btn-success float-right" type="submit">Submit</button>
+        </div>
+    </form>
+  </div>
+   
