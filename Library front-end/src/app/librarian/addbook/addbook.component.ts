@@ -11,19 +11,24 @@ import { Router } from '@angular/router';
 export class AddbookComponent implements OnInit {
 available='available';
 bookstatus;
+  message: any;
   constructor(private service: LibraryserviceService,private route:Router) { }
 
   ngOnInit() {
   }
 
 addBook(book){
+  this.message = null;
 console.log(book.value)
 this.service.addBook(book).subscribe(data=>{
-  
   console.log("successfully added Book", data);
+  if(data.statusCode === 201){
+    this.message = 'Book is Added Successfully';
+  }
   console.log(data.description);
   this.bookstatus=data.description;
-  this.route.navigate(['libhome']);
+  // this.route.navigate(['libhome']);
+  book.reset();
 }, err=>{
   console.log("error");
 }, ()=>{
